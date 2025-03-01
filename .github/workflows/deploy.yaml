@@ -1,19 +1,33 @@
 name: Deploy
-on: [push,workflow_dispatch]   #for different event go to : Github action events,, workflow_dispatch is for the manual trigger the event.
+on: [push,workflow_dispatch]   #for different event go to : GS :Github action events,, workflow_dispatch is for the manual trigger the event.
 # on:
 #     - push
 #     - workflow_dispatch
 # another syntax when we need to pass objects
-# line 14: github is context variable expression provided by github action, that we can use
+# line 14: github is context variable expression provided by github action, that we can use GS : expression github action
+
+#we can also use template from marketplace
 jobs:
     test:
         runs-on: ubuntu-latest
         steps:
             - name: Get Code # to get the code the code on the remote machine
-              run: |                     # to run the multiple command we use | (pipe), 
-                echo "Getting the code - Cloning repo..."
-                echo "${{toJson(github)}}"
-                git clone https://github.com/${{github.repository}}.git
+              # run: |                     # to run the multiple command we use | (pipe), 
+              #   echo "Getting the code - Cloning repo..."
+              #   echo "${{toJson(github)}}"
+              #   git clone https://github.com/${{github.repository}}.git
+              #isntead of run we can use
+              uses: actions/checkout@v4
+            - name: Install Node 20
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+            - name: Print the node version
+              run: node -v
+            - name: Install Dependencies
+              run: npm ci
+            - name: Run tests
+              run: npm run test       
 
                 
                 
