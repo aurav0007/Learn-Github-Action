@@ -1,4 +1,4 @@
-name: TemplateDemo  #this is the name of the yml file
+name: TemplateDemo  #this is the name of the yml file, can keep it same with the .yaml file
 on: push  #On is a event (when to trigger the workflow) - Then can be multiple On (i.e multiple event to trigger the workflow. Here "push" is a event. To Give the multiple event, we can give it as array [push,test,deploy])
 jobs:              #we define tasks inside the jobs
     task1:

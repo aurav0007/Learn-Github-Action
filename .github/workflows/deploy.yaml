@@ -1,0 +1,19 @@
+name: Deploy
+on: [push,workflow_dispatch]   #for different event go to : Github action events,, workflow_dispatch is for the manual trigger the event.
+# on:
+#     - push
+#     - workflow_dispatch
+# another syntax when we need to pass objects
+# line 14: github is context variable expression provided by github action, that we can use
+jobs:
+    test:
+        runs-on: ununtu-latest
+        steps:
+            - name: Get Code # to get the code the code on the remote machine
+              run: |                     # to run the multiple command we use | (pipe), 
+                echo "Getting the code - Cloning repo..."
+                echo "${{toJson(github)}}"
+                git clone https://github.com/${{github.repository}}.git
+                
+                
+                
