@@ -1,5 +1,5 @@
 name: TemplateDemo  #this is the name of the yml file, can keep it same with the .yaml file
-on: push  #On is a event (when to trigger the workflow) - Then can be multiple On (i.e multiple event to trigger the workflow. Here "push" is a event. To Give the multiple event, we can give it as array [push,test,deploy])
+on: workflow_dispatch  #On is a event (when to trigger the workflow) - Then can be multiple On (i.e multiple event to trigger the workflow. Here "push" is a event. To Give the multiple event, we can give it as array [push,test,deploy])
 jobs:              #we define tasks inside the jobs
     task1:
         runs-on: ubuntu-latest # this is the machine on which our code will run(Different and Os and machine are availale : Github runner)
