@@ -34,30 +34,50 @@ jobs:
               run: npm ci
             - name: Run tests
               run: npm run test
-    deploy:
-        needs: test 
+
+    build:
+        needs: test
         runs-on: ubuntu-latest
         steps:
-          - name: Get code
-            uses: actions/checkout@v4
+           - name: Get code
+             uses: actions/checkout@v4
               
-          - name: Install Node 20
-            uses: actions/setup-node@v4
-            with:
+           - name: Install Node 20
+             uses: actions/setup-node@v4
+             with:
               node-version: 20 
 
-          - name: Cache Dependencies
-            uses: actions/cache@v4
-            with:
+           - name: Cache Dependencies
+             uses: actions/cache@v4
+             with:
               path: ~/.npm
               key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
               
-          - name: Install Dependencies
-            run: npm ci
+           - name: Install Dependencies
+             run: npm ci
           
-          - name: Build Project
-            run: npm run build
-          
+           - name: Build Project
+             run: npm run build
+        # when we build a dist folder is generated i.e an asset or an artifact
+        #we have uploaded the asset generated
+           - name: Upload Dist Artifact
+             uses: actions/upload-artifact@v4
+             with:
+                name: dist-files
+                path: dist
+        # while deploying that artifact is needed     
+    deploy:
+        needs: build 
+        runs-on: ubuntu-latest
+        steps:
+            #before deploying we need to download the artifact
+          - name: Download Dist Artifact
+            uses: actions/download-artifact@v4
+            with:
+                name: dist-files
+                path: dist
+
+
           - name: Deploy
             run: echo "Deploy Successfull"
 
