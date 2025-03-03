@@ -1,5 +1,5 @@
 name: Deploy_2
-on: [push,workflow_dispatch]
+on: [workflow_dispatch]
 #now as we see install dependencies is common in both the jobs and its taking most time. What we can do to resolve this issue?
 # we can cache the step ,, go to GS: Market place : cache
 jobs:

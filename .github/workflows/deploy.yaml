@@ -1,5 +1,5 @@
 name: Deploy
-on: [push,workflow_dispatch]   #for different event go to : GS :Github action events,, workflow_dispatch is for the manual trigger the event.
+on: [workflow_dispatch]   #for different event go to : GS :Github action events,, workflow_dispatch is for the manual trigger the event.
 # on:
 #     - push
 #     - workflow_dispatch
