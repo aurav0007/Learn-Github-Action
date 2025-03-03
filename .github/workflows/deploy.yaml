@@ -5,7 +5,7 @@ on: [push,workflow_dispatch]   #for different event go to : GS :Github action ev
 #     - workflow_dispatch
 # another syntax when we need to pass objects
 # line 14: github is context variable expression provided by github action, that we can use GS : expression github action
-
+# Note: If we dont want to trigger the workflow automatically when we checkin, can we use [skip ci] (works with push and pull event)
 #we can also use template from marketplace
 jobs:
     test:
@@ -27,7 +27,27 @@ jobs:
             - name: Install Dependencies
               run: npm ci
             - name: Run tests
-              run: npm run test       
+              run: npm run test
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get code
+            uses: actions/checkout@v4
+              
+          - name: Install Node 20
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20 
+          - name: Install Dependencies
+            run: npm ci
+          
+          - name: Build Project
+            run: npm run build
+          
+          - name: Deploy
+            run: echo "Deploy Successfull"
+              
+
 
                 
                 
