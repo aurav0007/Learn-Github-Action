@@ -1,7 +1,17 @@
-name: Deploy_2
-on: [push,workflow_dispatch]
-#now as we see install dependencies is common in both the jobs and its taking most time. What we can do to resolve this issue?
-# we can cache the step ,, go to GS: Market place : cache
+name: Deploy_3
+# on: [push,workflow_dispatch]
+on:
+    push:
+        branches:
+            - main
+            - 'Dev/**'
+        paths-ignore: # don't trigger the workflow when we commit , when we change to this file
+            - '.github/workflows/*'  #change to this file, #push will only work when both the conditions meets (&&)
+            - README.md
+    workflow_dispatch:
+
+
+
 jobs:
     test:
         runs-on: ubuntu-latest
